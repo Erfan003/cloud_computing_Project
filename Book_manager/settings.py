@@ -80,10 +80,15 @@ WSGI_APPLICATION = 'Book_manager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'data' / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'book_manager',
+        'USER': 'book_user',
+        'PASSWORD': 'your_password',
+        'HOST': 'postgres_db',
+        'PORT': '5432',
     }
 }
+
 
 
 

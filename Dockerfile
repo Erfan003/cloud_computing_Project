@@ -1,21 +1,27 @@
-# Use an official Python runtime as a parent image
+# Base image
 FROM python:3.10-slim
 
-# Set the working directory in the container
+
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set work directory
 WORKDIR /app
 
-# Copy the requirements file into the container
-COPY requirements.txt /app/
-
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code
-COPY . /app/
 
-# Expose the default Django port
+
+# Copy project files
+COPY . .
+
+# Expose the port
 EXPOSE 8000
 
-# Run the Django development server
+# Run the application
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-
