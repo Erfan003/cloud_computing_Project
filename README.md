@@ -57,13 +57,25 @@ DATABASE_PORT=5432
 
 3. Build and start the containers:
 ```bash
-docker-compose up --build
+docker-compose -f docker-compose.db.yml up --build -d
+docker-compose -f docker-compose.app.yml up --build -d
+```
+4. Running Migrations Inside the Container
+```bash
+docker exec -it django_app bash
+```
+```bash
+python manage.py migrate
+```
+```bash
+exit
 ```
 
-4. Access the application:
+5. Access the application:
 
-Django API: http://localhost:8000
+- Django API: http://localhost:8000
 
+---
 
 ### Usage
 1. Test the API using tools like Postman or Curl.
